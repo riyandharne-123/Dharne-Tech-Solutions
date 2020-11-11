@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
-
+session_start();
 // define variables and set to empty values
 $name = $email = $subject = $message = "";
 
@@ -46,7 +46,6 @@ try {
     $mail->Body    = $message;
     header("Location: index.php#contact");
     $mail->send();
-    session_start();
     $_SESSION['mail-sent'] = true;
  
 } catch (Exception $e) {
