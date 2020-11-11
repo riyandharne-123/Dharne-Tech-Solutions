@@ -44,9 +44,12 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject;
     $mail->Body    = $message;
+    header("Location: index.php#contact");
     $mail->send();
-
+    session_start();
+    $_SESSION['mail-sent'] = true;
  
 } catch (Exception $e) {
-  echo $mail->ErrorInfo;
+  $_SESSION['mail-sent'] = false;
+  header("Location: index.php#contact");
 }

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -346,7 +349,7 @@
               </div>
 
               <div class="col-lg-6">
-                <form  method="post" id="contact_form" class="php-email-form">
+                <form  method="post" id="contact_form" action="contact_mail.php">
                   <div class="form-row">
                     <div class="col-md-6 form-group">
                       <label for="name">Your Name</label>
@@ -369,7 +372,26 @@
                     <textarea id="contact-message" name="contact-message" class="form-control" required rows="8" data-rule="required" data-msg="Please write something for us"></textarea>
                     <div class="validate"></div>
                   </div>
-                  <div class="text-center"><button type="submit">Send Message <i class="icofont-envelope"></i></button></div>
+                  <?php
+                error_reporting(E_ALL ^ E_NOTICE);  
+                  if( $_SESSION["mail-sent"] == 1)
+                {
+                  session_destroy();
+                  echo '<script>swal("Mail Sent!", "", "success");</script>';
+                }
+                 else if( $_SESSION["mail-sent"] == 0)
+                {
+                  session_destroy();
+                  echo '
+                  <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <strong>Wrong Details!</strong>
+                  </div>
+                  <br>
+                  ';
+                }
+                ?>
+                  <div class="text-center"><button class="btn btn-outline-info" type="submit">Send Message <i class="icofont-envelope"></i></button></div>
                 </form>
               </div>
 
@@ -444,7 +466,6 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="forms/ajax.js"></script>
 </body>
 
 </html>
