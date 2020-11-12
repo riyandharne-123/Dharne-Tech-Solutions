@@ -37,6 +37,8 @@ try {
     //Recipients
     $mail->setFrom('dharne.techsolutions@gmail.com', 'admin');
     $mail->setFrom($email, $name);
+    
+    $mail->addAddress('riyandharne@gmail.com', 'Riyan Dharne');  
     $mail->addAddress('dharne.techsolutions@gmail.com', 'Riyan Dharne');  
        // Add a recipient
 
@@ -45,10 +47,10 @@ try {
     $mail->Subject = $subject;
     $mail->Body    = $message;
     $_SESSION['mail-sent'] = true;
-    header("Location: index.php#contact");
+    header("Location: index.html#contact");
     $mail->send(); 
 
  
 } catch (Exception $e) {
-echo $e;
+  echo $mail->ErrorInfo;
 }
